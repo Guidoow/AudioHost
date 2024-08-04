@@ -1,0 +1,100 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: ${PROXY_CONTAINER_NAME}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/templates/default.conf.template
+      - ${LOCAL_SSL_CERTIFICATE_PATH}:${NGINX_SSL_CERTIFICATE_PATH}
+      - ${LOCAL_SSL_CERTIFICATE_KEY_PATH}:${NGINX_SSL_CERTIFICATE_KEY_PATH}
+    environment:
+      - BACKEND_INTERNAL_PORT=${BACKEND_INTERNAL_PORT}
+      - FRONTEND_INTERNAL_PORT=${FRONTEND_INTERNAL_PORT}
+      - BACKEND_CONTAINER_NAME=${BACKEND_CONTAINER_NAME}
+      - FRONTEND_CONTAINER_NAME=${FRONTEND_CONTAINER_NAME}
+      - NGINX_SSL_CERTIFICATE_PATH=${NGINX_SSL_CERTIFICATE_PATH}
+      - NGINX_SSL_CERTIFICATE_KEY_PATH=${NGINX_SSL_CERTIFICATE_KEY_PATH}
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - ext
+
+  backend:
+    image: node:latest
+    container_name: ${BACKEND_CONTAINER_NAME}
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_URI=${DATABASE_URI}
+      - BACKEND_INTERNAL_PORT=${BACKEND_INTERNAL_PORT}
+    command: /bin/bash -c "npm install && npm run start:dev"
+    depends_on:
+      - mongo
+    networks:
+      - int
+      - ext
+
+  frontend:
+    image: node:latest
+    container_name: ${FRONTEND_CONTAINER_NAME}
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: /bin/bash -c "npm install && npm run start:dev"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - FRONTEND_INTERNAL_PORT=${FRONTEND_INTERNAL_PORT}
+    networks:
+      - ext
+
+  mongoC1:
+    image: mongo:latest
+    container_name: ${DATABASE_REPL_CONTAINER_NAME}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - DATABASE_CONTAINER_NAME=${DATABASE_CONTAINER_NAME}
+      - DATABASE_REPL_CONTAINER_NAME=${DATABASE_REPL_CONTAINER_NAME}
+    volumes:
+      - database_repl_data:/data/db
+      - ./mongo/.keyfile:/etc/.keyfile
+    command: mongod --replSet rs0 --auth --bind_ip_all --keyFile /etc/.keyfile
+    depends_on:
+      - mongo
+    networks:
+      - int
+
+  mongo:
+    image: mongo:latest
+    container_name: ${DATABASE_CONTAINER_NAME}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - DATABASE_CONTAINER_NAME=${DATABASE_CONTAINER_NAME}
+      - DATABASE_REPL_CONTAINER_NAME=${DATABASE_REPL_CONTAINER_NAME}
+    volumes:
+      - database_data:/data/db
+      - ./mongo/.keyfile:/etc/.keyfile
+      - ./mongo/init-rs.sh:/docker-entrypoint-initdb.d/init-rs.sh
+    command: mongod --replSet rs0 --auth --bind_ip_all --keyFile /etc/.keyfile
+    networks:
+      - int
+
+networks:
+  ext:
+    driver: bridge
+  int:
+    driver: bridge
+
+volumes:
+  database_data:
+  database_repl_data:

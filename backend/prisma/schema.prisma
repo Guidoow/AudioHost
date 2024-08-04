@@ -1,0 +1,42 @@
+generator client {
+  binaryTargets = ["native"]
+  provider      = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URI")
+}
+
+model Client {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  IP   String @unique
+  UUID String @unique
+
+  Song Song?
+
+  likes String[] @default([])
+  views String[] @default([])
+}
+
+model Song {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  author String
+  image  String
+  src    String
+
+  likes Int @default(0)
+  views Int @default(0)
+
+  saved    Int
+  comments Int
+
+  wave100 Float[]
+  wave220 Float[]
+
+  date DateTime @default(now())
+
+  client Client @relation(fields: [UUID], references: [UUID])
+  UUID   String @unique
+}

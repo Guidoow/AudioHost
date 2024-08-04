@@ -1,0 +1,23 @@
+:root {
+  --wave-background-top: rgb(0, 0, 0, 0.4);
+  --wave-background-bottom: rgb(0, 0, 0, 0.1);
+}
+
+.dark,
+.dark-high-contrast,
+.dark-medium-contrast {
+  --wave-tile: rgb(180, 200, 215);
+  --wave-tile-hover: rgb(90, 150, 250);
+  --wave-tile-played: rgb(15, 95, 165);
+
+  --wave-background-top: rgb(0, 0, 0, 0.4);
+  --wave-background-bottom: rgb(0, 0, 0, 0.5);
+}
+
+.light,
+.light-high-contrast,
+.light-medium-contrast {
+  --wave-tile: rgb(180, 200, 215);
+  --wave-tile-hover: rgb(130, 180, 240);
+  --wave-tile-played: rgb(45, 130, 210);
+}

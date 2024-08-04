@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@import url("baseline.css");
+
+@import url("md-custom.css");
+@import url("custom.css");
+@import url("wave.css");
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  user-select: none;
+
+  --vh: 1vh;
+
+  --smooth-shadow: rgba(4, 4, 4, 0.4);
+
+  --svg-upload-btn-size: 100%;
+  --list-audiobox-image-size: 220px;
+  --audiobox-text-size: 15px;
+
+  --horbar-height: 50px;
+  --horbar-width: 100%;
+
+  --max-height: calc(var(--vh, 1vh) * 100);
+
+  --body-height: calc(var(--max-height) - var(--horbar-height));
+  --body-width: calc(100vw);
+
+  --content-height: calc(var(--body-height) - 1rem);
+  --content-width: calc(var(--body-width) - 1rem - var(--sidebar-width) - 2rem);
+
+  --sidebar-width: 175px;
+  --sidebar-height: var(--content-height);
+
+  --md-ref-typeface-brand: "Montserrat", system-ui;
+  --md-ref-typeface-plain: "Montserrat", system-ui;
+
+  --md-icon-font: "Material Symbols Rounded";
+  font-family: var(--md-ref-typeface-brand);
+}
+
+html,
+body,
+md-outlined-text-field,
+md-elevated-button,
+md-filled-button,
+md-text-button,
+* {
+  transition: color 0.1s, background-color 0.1s, background 0.1s !important;
+}
+
+html,
+body {
+  background-color: rgb(222, 240, 255);
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 100%;
+  max-width: 100%;
+
+  max-height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
+
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 100);
+
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+h3 {
+  max-width: fit-content;
+  padding-right: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+h3::after {
+  transition: width 0.3s ease-in-out;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--md-sys-color-on-background);
+}
+
+section:hover h3::after {
+  transition: width 0.3s ease-in-out;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --sidebar-width: 0rem;
+    --sidebar-height: 0rem;
+    --content-width: calc(
+      var(--body-width) - 1rem - var(--sidebar-width) - 1rem
+    );
+    --content-height: calc(
+      var(--body-height) - 2rem - (var(--horbar-height) * 2)
+    );
+    --list-audiobox-image-size: 96px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  :root {
+    --sidebar-width: 0rem;
+    --sidebar-height: 0rem;
+    --content-width: calc(
+      var(--body-width) - 1rem - var(--sidebar-width) - 1rem
+    );
+    --content-height: calc(
+      var(--body-height) - 2rem - (var(--horbar-height) * 2)
+    );
+    --list-audiobox-image-size: 172px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --sidebar-width: 150px;
+    --sidebar-height: var(--content-height);
+    --content-width: calc(
+      var(--body-width) - 1rem - var(--sidebar-width) - 2rem
+    );
+    --content-height: calc(var(--body-height) - 1rem);
+    --list-audiobox-image-size: 172px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  :root {
+    --sidebar-width: 175px;
+    --sidebar-height: var(--content-height);
+    --content-width: calc(
+      var(--body-width) - 1rem - var(--sidebar-width) - 2rem
+    );
+    --content-height: calc(var(--body-height) - 1rem);
+    --list-audiobox-image-size: 220px;
+  }
+}
+
+@media (min-width: 1201px) {
+  :root {
+    --sidebar-width: 175px;
+    --sidebar-height: var(--content-height);
+    --content-width: calc(
+      var(--body-width) - 1rem - var(--sidebar-width) - 2rem
+    );
+    --content-height: calc(var(--body-height) - 1rem);
+    --list-audiobox-image-size: 220px;
+  }
+}

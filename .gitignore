@@ -1,0 +1,15 @@
+**/.vscode/*
+**/logs
+**/*.log
+**/npm-debug.log*
+**/.pnpm-debug.log*
+**/node_modules
+**/dist
+**/*.local
+**/!.vscode/extensions.json
+**/.idea
+**/.npm
+**/.prettierrc
+**/package-lock.json
+**/.keyfile
+*.keyfile

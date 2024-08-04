@@ -1,0 +1,43 @@
+md-icon[filled] {
+  font-variation-settings: "FILL" 1;
+}
+
+md-icon[xsmall] {
+  --md-icon-size: 16px;
+}
+
+md-icon[small] {
+  --md-icon-size: 20px;
+}
+
+md-icon[medium] {
+  --md-icon-size: 24px;
+}
+
+md-icon[large] {
+  --md-icon-size: 30px;
+}
+
+md-icon[xlarge] {
+  --md-icon-size: 36px;
+}
+
+md-icon[xxlarge] {
+  --md-icon-size: 48px;
+}
+
+md-icon[thin] {
+  font-variation-settings: "wght" 100, "opsz" 20;
+}
+
+md-icon[stroke] {
+  font-variation-settings: "wght" 300;
+}
+
+md-icon[thin][filled] {
+  font-variation-settings: "FILL" 1, "wght" 100, "opsz" 20;
+}
+
+md-icon[stroke][filled] {
+  font-variation-settings: "FILL" 1, "wght" 300;
+}
