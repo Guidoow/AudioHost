@@ -43,7 +43,7 @@ It emulates the functionality of briefly interacting with the content, such as g
 A live demo of this project is not available at this moment. This project may no longer be continued, but a video demonstration is available on YouTube:
 
 <a href="https://www.youtube.com/watch?v=CBnGdF0QKCM">
-  <img preload="true" src="./gh-assets/link.gif" alt="GIF" style="max-height: 700px;">
+  <img preload="true" src="./gh-assets/link.gif" alt="GIF" style="max-height: 400px;">
 </a>
 
 ## Local reproducing
